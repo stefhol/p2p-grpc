@@ -1,0 +1,25 @@
+syntax = "proto3";
+package test;
+service ChatRoom {
+    rpc SayHello (NameRequest) returns (NameReply);
+    rpc add_user(NameRequest) returns (StatusResponse);
+    rpc get_user(OptionalNameRequest) returns (stream NameReply);
+    rpc delete_user(NameRequest) returns (StatusResponse);
+    rpc join_room(NameRequest) returns (stream NameReply);
+    rpc leave_room(NameRequest) returns (StatusResponse);
+
+}
+message StatusResponse {
+    bool sucess = 1;
+}
+message NameRequest {
+    // Request message contains the name to be greeted
+    string name = 1;
+}
+message OptionalNameRequest{
+    optional string name = 1;
+}
+message NameReply {
+    // Reply contains the greeting message
+    string message = 1;
+}
