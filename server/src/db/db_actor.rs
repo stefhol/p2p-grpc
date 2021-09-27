@@ -2,7 +2,7 @@ use actix::{Actor, Context, Handler};
 use anyhow::Error;
 use rusqlite::{Connection};
 use crate::model::User;
-
+use log::info;
 use super::db::{add_new_user, create_room, get_user_db};
 pub struct Db {
     conn: Connection,
@@ -13,6 +13,9 @@ impl Db {
 }
 impl Actor for Db {
     type Context = Context<Self>;
+    fn started(&mut self, ctx: &mut Self::Context) {
+        info!(target: "db","db started");
+    }
     
     fn stopping(&mut self, ctx: &mut Self::Context) -> actix::Running {
         actix::Running::Stop
